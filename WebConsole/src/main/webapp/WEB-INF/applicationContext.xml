@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+       xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://jax-ws.dev.java.net/spring/core http://jax-ws.java.net/spring/core.xsd
+        http://jax-ws.dev.java.net/spring/servlet http://jax-ws.java.net/spring/servlet.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+
+
+    <wss:binding url="/cstservice">
+        <wss:service>
+            <ws:service bean="#cstsrv"/>
+        </wss:service>
+    </wss:binding>
+
+
+
+    <bean id="customerDAO" class="org.RayanEN.model.dao.Customer.CustomerDAOImpl" />
+    <bean id="userDAO" class="org.RayanEN.model.dao.User.UserDAOImpl" />
+
+
+    <bean id="cstsrv" class="org.RayanEN.model.service.Customer.CustomerJAXWSImpl">
+        <property name="customerDAO" ref="customerDAO"/>
+    </bean>
+
+
+
+    <bean id="customerRESTImpl" class="org.RayanEN.model.service.Customer.CustomerRESTImpl">
+        <property name="customerDAO" ref="customerDAO"/>
+    </bean>
+
+
+
+    <context:component-scan base-package="org.RayanEN" />
+
+
+    <!--<ws:service id="cstsrv" impl="org.RayanEN.model.service.Customer.CustomerJAXWSImpl"   />-->
+
+    <!--<wss:binding url="/CustomerService" service="cstsrv" />-->
+
+
+
+</beans>
+
